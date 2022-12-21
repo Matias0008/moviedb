@@ -1,0 +1,127 @@
+#root,
+html,
+body {
+  height: 100%;
+}
+
+:root {
+  --tmdbDarkBlue: 3, 37, 65;
+  --tmdbLightBlue: 1, 180, 228;
+  --primary: 3, 37, 65, 1;
+}
+
+.section-title {
+  background-image: linear-gradient(
+      to right,
+      rgba(var(--tmdbDarkBlue), 0.8) 0%,
+      rgba(var(--tmdbDarkBlue), 0) 100%
+    ),
+    url("https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,032541,01b4e4)/7VrRna8S3x6xbijooeBmxqvHXiu.jpg");
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  min-height: 350px;
+  height: calc(100vh / 2.8);
+}
+
+.button-index {
+  background: linear-gradient(
+    to right,
+    rgba(30, 213, 169) 0%,
+    rgba(1, 180, 228, 1) 100%
+  ) !important;
+}
+
+option:not(:checked) {
+  color: black !important;
+}
+
+.movie-box {
+  position: relative !important;
+}
+
+.movie-box::after {
+  content: attr(rating);
+  text-align: center;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  top: -3px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: rgba(var(--primary));
+  color: white;
+}
+
+.movie-fact-card {
+  margin: 0 !important;
+}
+
+.meta {
+  background-color: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  height: 40px;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 141px;
+  width: 100%;
+  bottom: 0;
+  visibility: hidden;
+}
+
+.meta-hover:hover .meta {
+  visibility: visible;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  opacity: 0.2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.7;
+  background: #555;
+}
+
+.cast-item {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.cast-item::after {
+  content: "";
+  width: 30px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    #fff 100%
+  );
+  will-change: opacity;
+  pointer-events: none;
+}
