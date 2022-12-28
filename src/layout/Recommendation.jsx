@@ -4,27 +4,31 @@ import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import { api } from "@src/api";
 import { useFetch } from "@src/hooks/useFetch";
 
-export const Recommendation = ({ type, id }) => {
-  const recomURL = `https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=${api.API_KEY}&language=es-ES&page=1`;
-  const { data, isLoading } = useFetch(recomURL);
+export const Recommendation = ({ id, type }) => {
+  const url = api.links.requests.getRecommendations(id, type);
+  const { data, isLoading } = useFetch(url);
   const { results } = data;
 
   if (isLoading) return;
+  // if (Boolean(data.len))
 
   return (
     <>
       <Stack pt={4}>
-        <Text fontSize={"1.4rem"} fontWeight={"bold"} as={"h2"} mb={3}>
+        <Text fontSize={"1.4rem"} fontWeight={"bold"} as={"h2"} mb={2}>
           Recomendaciones
         </Text>
         <Stack
           direction={"row"}
-          overflowX={"scroll"}
+          overflowX={!Boolean(results.length) ? "" : "scroll"}
           overflowY={"hidden"}
           as="section"
           gap={2}
           pb={4}
         >
+          {!Boolean(results.length) && (
+            <Text>No tenemos suficiente información para recomendarte. </Text>
+          )}
           {results.map((result) => {
             const isMovie = result.media_type === "movie";
             return (

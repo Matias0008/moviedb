@@ -7,7 +7,12 @@ import { api, defineType } from "@src/api";
 import { MovieCard } from "./MovieCard";
 import { MovieLinkElement } from "./MovieLinkElement";
 
-export const SectionLayout = ({ links, initialNameLink, prefix = "" }) => {
+export const SectionLayout = ({
+  title,
+  links,
+  initialNameLink,
+  prefix = "",
+}) => {
   const [selected, setSelected] = useState({
     id: 1,
     name: initialNameLink,
@@ -18,7 +23,7 @@ export const SectionLayout = ({ links, initialNameLink, prefix = "" }) => {
   const handleClick = (id, name) => {
     setSelected({
       id,
-      name: `${prefix}${name}`,
+      name: `${prefix}${name.replace(" ", "")}`,
     });
   };
 
@@ -30,7 +35,7 @@ export const SectionLayout = ({ links, initialNameLink, prefix = "" }) => {
 
     setSelected({
       id,
-      name: `${prefix}${name}`,
+      name: `${prefix}${name.replace(" ", "")}`,
     });
   };
 
@@ -50,7 +55,7 @@ export const SectionLayout = ({ links, initialNameLink, prefix = "" }) => {
             fontWeight={"600"}
             mb={"5px"}
           >
-            Lo más popular
+            {title}
           </Text>
           <Box
             display={"flex"}

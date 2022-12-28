@@ -12,8 +12,8 @@ import {
   Img,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { links } from "../../data/navlinks";
-import { useNavigate } from "react-router-dom";
+import { links } from "@src/data/navlinks";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -21,16 +21,17 @@ export default function Navbar() {
 
   return (
     <>
-      <Box bg={"primary"} px={4}>
+      <Box
+        bg={"primary"}
+        px={4}
+        position={"fixed"}
+        top={0}
+        zIndex={999}
+        w="100%"
+      >
         <Container maxW={"1200px"} px={4}>
           <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-            <Stack
-              color={"white"}
-              direction={"row"}
-              gap={8}
-              position={"sticky"}
-              zIndex={"999"}
-            >
+            <Stack color={"white"} direction={"row"} gap={8} zIndex={"999"}>
               <Img
                 src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
                 width={"150px"}
@@ -47,14 +48,6 @@ export default function Navbar() {
                 );
               })}
             </Stack>
-
-            <Flex alignItems={"center"}>
-              <Stack direction={"row"} spacing={7}>
-                <Button onClick={toggleColorMode}>
-                  {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                </Button>
-              </Stack>
-            </Flex>
           </Flex>
         </Container>
       </Box>
@@ -74,7 +67,12 @@ const MenuLink = ({ name, actions }) => {
       </MenuButton>
       <MenuList color={"black"}>
         {actions.map((action) => {
-          return <MenuItem key={action.name}>{action.name}</MenuItem>;
+          const { path } = action;
+          return (
+            <MenuItem key={action.name}>
+              <Link to={path}>{action.name}</Link>
+            </MenuItem>
+          );
         })}
       </MenuList>
     </Menu>

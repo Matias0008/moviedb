@@ -16,7 +16,6 @@ export const Title = ({ onSubmit }) => {
       <Box
         as={"section"}
         className={"section-title"}
-        zIndex={"-2"}
         position={width <= 768 ? "sticky" : ""}
       >
         <Stack
@@ -42,6 +41,7 @@ export const Title = ({ onSubmit }) => {
             pt={8}
             pb={8}
             align={"center"}
+            as={"form"}
             onSubmit={handleSubmit}
           >
             <Input

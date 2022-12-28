@@ -14,6 +14,14 @@ import {
 } from "@chakra-ui/react";
 
 import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from "@chakra-ui/react";
+
+import {
   ChevronDownIcon,
   MoonIcon,
   SunIcon,
@@ -23,14 +31,24 @@ import {
 
 import { links } from "../../data/navlinks";
 import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function MobileNavbar() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+
+  document.body.style.overflowY = isOpen ? "hidden" : "scroll";
 
   return (
     <>
-      <Box bg={"primary"} px={{ base: 2, md: 4 }}>
+      <Box
+        bg={"primary"}
+        px={{ base: 2, md: 4 }}
+        position={"fixed"}
+        top={0}
+        w="100%"
+        zIndex={999}
+      >
         <Container maxW={"1300px"} px={{ base: 2, md: 4 }}>
           <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
             <Stack color={"white"} direction={"row"} gap={8}>
@@ -41,27 +59,22 @@ export default function MobileNavbar() {
                 onClick={() => setIsOpen(!isOpen)}
               />
             </Stack>
-            <Img
-              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
-              width={"50px"}
-            ></Img>
-
-            <Flex alignItems={"center"}>
-              <Stack direction={"row"} spacing={7}>
-                <Button onClick={toggleColorMode}>
-                  {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                </Button>
-              </Stack>
-            </Flex>
+            <Box>
+              <Img
+                src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
+                width={"50px"}
+                onClick={() => navigate("/")}
+              ></Img>
+            </Box>
           </Flex>
         </Container>
       </Box>
-      <Sidebar isOpen={isOpen} />
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 }
 
-const Sidebar = ({ isOpen }) => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   return (
     <>
       <Box
@@ -74,38 +87,71 @@ const Sidebar = ({ isOpen }) => {
         transition={"left ease .3s"}
         zIndex={"9999"}
       >
-        <Stack alignItems={"start"} padding={8} height={"100%"} fontSize={20}>
-          {links.map((link) => {
-            return (
-              <MenuLink
-                name={link.name}
-                actions={link.actions}
-                key={link.name}
-              />
-            );
-          })}
+        <Stack alignItems={"start"} height={"100%"} fontSize={20} py={4}>
+          <Accordion
+            allowMultiple
+            color={"white"}
+            fontSize={20}
+            w="100%"
+            defaultIndex={[0, 1]}
+          >
+            {links.map((link) => {
+              return (
+                <MenuLink
+                  name={link.name}
+                  actions={link.actions}
+                  setIsOpen={setIsOpen}
+                  key={link.name}
+                />
+              );
+            })}
+          </Accordion>
         </Stack>
       </Box>
     </>
   );
 };
 
-const MenuLink = ({ name, actions }) => {
+const MenuLink = ({ name, actions, setIsOpen }) => {
   return (
-    <Menu>
-      <MenuButton
-        transition="all 0.2s"
-        _focus={{ boxShadow: "outline" }}
-        fontWeight={"bold"}
-        color={"white"}
-      >
-        {name} <ChevronDownIcon />
-      </MenuButton>
-      <MenuList color={"black"}>
-        {actions.map((action) => {
-          return <MenuItem key={action.name}>{action.name}</MenuItem>;
-        })}
-      </MenuList>
-    </Menu>
+    <>
+      <AccordionItem border={"none"}>
+        <h2>
+          <AccordionButton>
+            <Box
+              as="span"
+              flex="1"
+              textAlign="left"
+              fontSize={20}
+              fontWeight={"bold"}
+            >
+              {name}
+            </Box>
+          </AccordionButton>
+        </h2>
+        <AccordionPanel pb={4}>
+          {actions.map((action) => {
+            const { path } = action;
+            return (
+              <Stack key={action.name} fontSize={18}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${isActive ? "active-link" : ""}`
+                  }
+                  to={path}
+                  onClick={() =>
+                    setTimeout(() => {
+                      setIsOpen(false);
+                    }, 100)
+                  }
+                >
+                  {action.name}
+                </NavLink>
+              </Stack>
+            );
+          })}
+        </AccordionPanel>
+      </AccordionItem>
+    </>
   );
 };

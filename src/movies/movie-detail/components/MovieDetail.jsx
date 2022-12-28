@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Box, Container, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Container, Image, Spinner, Stack, Text } from "@chakra-ui/react";
 
 import { useFetch } from "@src/hooks/useFetch";
 import { Cast } from "@src/layout";
@@ -7,9 +7,12 @@ import { api } from "@src/api";
 
 import { Facts } from "./Facts";
 import { Detail } from "./Detail";
+import { useContext } from "react";
+import { AppContext } from "../../../context/AppContext";
 
 export const MovieDetail = () => {
   const { id } = useParams();
+  const { setPageTitle } = useContext(AppContext);
 
   const moviesURL = api.links.requests.getOneMovie(id);
   const creditsURL = api.links.requests.movieCredits(id);
@@ -20,9 +23,17 @@ export const MovieDetail = () => {
   const { data: keywordsFetch, isLoading: isKeywordsLoading } =
     useFetch(keywordsURL);
 
-  if (isLoading) return;
-  if (isCreditsLoading) return;
-  if (isKeywordsLoading) return;
+  if (isLoading || isCreditsLoading || isKeywordsLoading) {
+    return (
+      <Stack h="100vh" justify={"center"} align="center">
+        <Spinner />
+      </Stack>
+    );
+  }
+  document.title = `${data.title} (TV Series ${data.release_date.slice(
+    0,
+    4
+  )}) | The Movie Database (TMDB)`;
 
   const { crew, cast } = credits;
   const { keywords } = keywordsFetch;
@@ -38,7 +49,7 @@ export const MovieDetail = () => {
   const posterImg = `${api.links.images.poster}${data.poster_path}`;
 
   return (
-    <Box width={"100%"} height={{ lg: "570px" }} my={{ lg: 12 }}>
+    <Box width={"100%"}>
       <Box
         backgroundImage={`url(${backdropImg})`}
         backgroundSize={"cover"}

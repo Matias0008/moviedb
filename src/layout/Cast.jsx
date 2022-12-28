@@ -9,7 +9,6 @@ export const Cast = ({ cast, type, movieId, children }) => {
       <Stack
         width={{ base: "100%", lg: "75%" }}
         flex={{ md: 1 }}
-        justify={"space-between"}
         className="cast-item"
         divider={<StackDivider />}
       >

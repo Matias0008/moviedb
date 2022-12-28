@@ -2,20 +2,18 @@ import { Box, Container } from "@chakra-ui/react";
 
 import { Title } from "./Title";
 import { SectionLayout } from "../layout";
+import { useNavigate } from "react-router-dom";
 
 export const Index = () => {
+  document.title = "The Movie Database (TMDB)";
+  const navigate = useNavigate();
   const onSubmit = (value) => {
-    console.log(value);
+    navigate(`/search?query=${value}`);
   };
 
   return (
     <>
-      <Box
-        px={{ base: 0, md: 0, xl: 4 }}
-        height={"calc(100% - 64px)"}
-        position={"sticky"}
-        zIndex={"1"}
-      >
+      <Box px={{ base: 0, md: 0, xl: 4 }} position={"sticky"} zIndex={"1"}>
         <Container
           maxW={"1300px"}
           height={"100%"}
@@ -25,10 +23,18 @@ export const Index = () => {
         >
           <Title onSubmit={(value) => onSubmit(value)} />
           <SectionLayout
+            title={"Lo más popular"}
             links={mostPopularLinks}
-            initialNameLink={"En streaming"}
+            initialNameLink={"Enstreaming"}
           />
           <SectionLayout
+            title={"Tendencias"}
+            links={trendingLinks}
+            initialNameLink={"TrendingHoy"}
+            prefix={"Trending"}
+          />
+          <SectionLayout
+            title={"Mejor valoradas"}
             links={topRatedLinks}
             initialNameLink={"TopRatedPeliculas"}
             prefix={"TopRated"}
@@ -66,5 +72,13 @@ const topRatedLinks = [
   {
     name: "Television",
     id: 2,
+  },
+];
+
+const trendingLinks = [
+  { id: 1, name: "Hoy" },
+  {
+    id: 2,
+    name: "Esta semana",
   },
 ];

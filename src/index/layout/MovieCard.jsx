@@ -38,7 +38,14 @@ export const MovieCard = ({ type, url }) => {
     >
       {results.map((result, i) => {
         const image = `https://image.tmdb.org/t/p/w500${result.poster_path}`;
-        return <MovieItem image={image} result={result} key={i} type={type} />;
+        return (
+          <MovieItem
+            image={image}
+            result={result}
+            key={i}
+            type={type || result.media_type}
+          />
+        );
       })}
     </Stack>
   );
@@ -67,12 +74,14 @@ const MovieItem = ({ type, result, image }) => {
       >
         <Box as="img" src={image} rounded={"lg"} height={"100%"}></Box>
       </Box>
-      <Text fontWeight={"bold"} fontSize={"15px"}>
-        {result.name ? result.name : result.title}
-      </Text>
-      <Text fontSize={"15px"} fontWeight={"400"} color={"gray"}>
-        {result.first_air_date ? result.first_air_date : result.release_date}
-      </Text>
+      <Box>
+        <Text fontWeight={"bold"} fontSize={"15px"}>
+          {result.name || result.title}
+        </Text>
+        <Text fontSize={"15px"} fontWeight={"400"} color={"gray"}>
+          {result.first_air_date || result.release_date}
+        </Text>
+      </Box>
     </MotionFlex>
   );
 };

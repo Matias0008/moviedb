@@ -9,7 +9,6 @@ export const Facts = ({
   original_language,
   keywords,
 }) => {
-  const newKeywords = keywords.slice(0, 15);
   const maps = {
     "Returning Series": "Volverá a emitirse",
     Scripted: "Con guion",
@@ -18,6 +17,7 @@ export const Facts = ({
     ja: "Japonés",
     Ended: "Finalizado",
   };
+  const newKeywords = keywords.slice(0, 20);
 
   return (
     <Box
@@ -95,6 +95,9 @@ export const Facts = ({
           maxW={{ base: "100%", md: 200 }}
           w={{ base: "100%" }}
         >
+          {keywords.length === 0 && (
+            <Text>No se han añadido palabras clave.</Text>
+          )}
           {newKeywords.map((keyword) => {
             return (
               <Text

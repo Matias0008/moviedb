@@ -4,15 +4,19 @@ export const links = [
     actions: [
       {
         name: "Popular",
+        path: "movie/popular",
       },
       {
         name: "En cartelera hoy",
+        path: "movie/now-playing",
       },
       {
         name: "Proximamente",
+        path: "movie/upcoming",
       },
       {
         name: "Mejor valoradas",
+        path: "movie/top-rated",
       },
     ],
   },
@@ -21,23 +25,12 @@ export const links = [
     actions: [
       {
         name: "Popular",
+        path: "tv/popular",
       },
-      {
-        name: "Se emiten hoy",
-      },
-      {
-        name: "En television",
-      },
+
       {
         name: "Mejor valorados",
-      },
-    ],
-  },
-  {
-    name: "Personas",
-    actions: [
-      {
-        name: "Personas populares",
+        path: "tv/top-rated",
       },
     ],
   },

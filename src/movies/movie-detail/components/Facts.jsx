@@ -9,6 +9,7 @@ export const Facts = ({
   keywords,
   type,
 }) => {
+  const newKeywords = keywords.slice(0, 10);
   const map = {
     en: "Ingles",
     Released: "Estrenada",
@@ -24,8 +25,6 @@ export const Facts = ({
     currency: "USD",
   });
 
-  const newKeywords = keywords.slice(0, 10);
-
   return (
     <Box
       mt={{ base: 8, lg: 0 }}
@@ -33,8 +32,8 @@ export const Facts = ({
       w={{ base: "100%", md: "unset" }}
     >
       <Stack
-        direction={{ base: "row", md: "column" }}
-        gap={{ base: 3, lg: 4 }}
+        direction={"column"}
+        gap={2}
         flexWrap={"wrap"}
         justify={{ base: "space-between", lg: "start" }}
       >
@@ -42,7 +41,6 @@ export const Facts = ({
           as={"h3"}
           fontWeight={"bold"}
           fontSize={"1.1rem"}
-          mb={2}
           w={{ base: "100%", md: "unset" }}
         >
           Datos
@@ -54,11 +52,7 @@ export const Facts = ({
           <Text>{original_title}</Text>
         </Box>
         <Box className="movie-fact-card">
-          <Text
-            fontWeight={"bold"}
-            lineHeight={1.1}
-            textAlign={{ base: "end", md: "start" }}
-          >
+          <Text fontWeight={"bold"} lineHeight={1.1} textAlign={"start"}>
             Estado
           </Text>
           <Text>{map[status]}</Text>
@@ -70,11 +64,7 @@ export const Facts = ({
           <Text>{map[original_language]}</Text>
         </Box>
         <Box className="movie-fact-card">
-          <Text
-            fontWeight={"bold"}
-            lineHeight={1.1}
-            textAlign={{ base: "end", md: "start" }}
-          >
+          <Text fontWeight={"bold"} lineHeight={1.1} textAlign={"start"}>
             Presupuesto
           </Text>
           <Text>{budgetFormatted != "$0.00" ? budgetFormatted : "-"}</Text>

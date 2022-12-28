@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Box, Container, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Container, Image, Spinner, Stack, Text } from "@chakra-ui/react";
 
 import { useFetch } from "@src/hooks/useFetch";
 import { Cast } from "@src/layout";
@@ -21,20 +21,28 @@ export const TvDetail = () => {
   const { data: keywordsFetch, isLoading: isKeywordsLoading } =
     useFetch(keywordsURL);
 
-  if (isLoading) return;
-  if (isCreditsLoading) return;
-  if (isKeywordsLoading) return;
+  if (isLoading || isCreditsLoading || isKeywordsLoading) {
+    return (
+      <Stack h="100vh" justify={"center"} align="center">
+        <Spinner />
+      </Stack>
+    );
+  }
 
   const { seasons } = data;
   const { cast } = credits;
   const { results: keywords } = keywordsFetch;
-  console.log(seasons);
+
+  document.title = `${data.name} (TV Series ${data.first_air_date.slice(
+    0,
+    4
+  )}) | The Movie Database (TMDB)`;
 
   const backdropImg = `${api.links.images.backdrop}${data.backdrop_path}`;
   const posterImg = `${api.links.images.poster}${data.poster_path}`;
 
   return (
-    <Box width={"100%"} height={{ lg: "570px" }} my={{ lg: 12 }}>
+    <Box width={"100%"}>
       <Box
         backgroundImage={`url(${backdropImg})`}
         backgroundSize={"cover"}
