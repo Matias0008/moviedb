@@ -1,7 +1,7 @@
 import { Button, Container, Grid, Stack, Text } from "@chakra-ui/react";
 import { MovieCard } from "../../layout/MovieCard";
 
-export const MovieLayout = ({ title, results, setNumPage }) => {
+export const MovieLayout = ({ type, title, results, setNumPage }) => {
   const cardsToShow = {
     base: "repeat(auto-fill, minmax(220px, 1fr))",
     md: "repeat(auto-fill, minmax(160px, 1fr))",
@@ -30,6 +30,7 @@ export const MovieLayout = ({ title, results, setNumPage }) => {
                 overview={result.overview}
                 id={result.id}
                 key={result.id}
+                type={type}
               />
             );
           })}

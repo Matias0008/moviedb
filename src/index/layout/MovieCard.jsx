@@ -1,7 +1,6 @@
 /* Este es un componente el cual renderiza las cards que se muestran en el indice de nuestra aplicacion, la cual contiene informacion como el titulo, puntuacion, imagen y fecha de lanzamiento */
 
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useFetch } from "../../hooks/useFetch";
 
 import { Box, Flex, Skeleton, Stack, Text } from "@chakra-ui/react";
@@ -53,10 +52,9 @@ export const MovieCard = ({ type, url }) => {
 
 const MovieItem = ({ type, result, image }) => {
   const navigate = useNavigate();
-  const MotionFlex = motion(Flex);
 
   return (
-    <MotionFlex
+    <Flex
       direction={"column"}
       pb={6}
       gap={2}
@@ -82,7 +80,7 @@ const MovieItem = ({ type, result, image }) => {
           {result.first_air_date || result.release_date}
         </Text>
       </Box>
-    </MotionFlex>
+    </Flex>
   );
 };
 

@@ -2,6 +2,7 @@ import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import { api } from "@src/api";
 
 export const LastSeason = ({ movieName, lastSeason, inProduction }) => {
+  console.log(lastSeason);
   const airDate = lastSeason.air_date;
 
   let date = new Date(

@@ -8,9 +8,13 @@ import { api } from "@src/api";
 import { Detail } from "./Detail";
 import { Facts } from "./Facts";
 import { LastSeason } from "./LastSeason";
+import { useEffect } from "react";
 
 export const TvDetail = () => {
   const { id } = useParams();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   const tvURL = api.links.requests.getOneTv(id);
   const creditsURL = api.links.requests.tvCredits(id);
@@ -121,7 +125,10 @@ export const TvDetail = () => {
               seasons[seasons.length - 1].air_date &&
               seasons[seasons.length - 1].poster_path
                 ? seasons[seasons.length - 1]
-                : seasons[seasons.length - 2]
+                : Number(seasons[seasons.length - 2]?.air_date.slice(0, 4)) <=
+                  2022
+                ? seasons[seasons.length - 2]
+                : seasons[seasons.length - 1]
             }
             inProduction={data.in_production}
             movieName={data.name}

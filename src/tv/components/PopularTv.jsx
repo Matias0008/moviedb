@@ -24,6 +24,7 @@ export const PopularTv = () => {
       results={results}
       title={"Programas de televisión populares"}
       setNumPage={setNumPage}
+      type="tv"
     />
   );
 };

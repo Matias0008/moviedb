@@ -26,7 +26,7 @@ export const AppRouter = () => {
       <Box mt={"64px"}>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="movie/:popular" element={<PopularMovies />} />
+          <Route path="movie/popular" element={<PopularMovies />} />
           <Route path="movie/:id" element={<MovieDetail />} />
           <Route path="movie/now-playing" element={<NowPlayingMovies />} />
           <Route path="movie/top-rated" element={<TopRatedMovies />} />

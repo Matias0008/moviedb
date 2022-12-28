@@ -25,13 +25,28 @@ export const Search = () => {
   document.title = `${query} | The Movie Database (TMDB)`;
 
   return (
-    <Container maxW={"1200px"} px={{ base: 4, md: 8, lg: 8, xl: 4 }} py={6}>
-      <Text fontSize={"1.2rem"} mb={4}>
-        Resultados para{" "}
-        <Text as={"span"} fontStyle={"italic"}>
-          {query}
+    <Container
+      maxW={"1200px"}
+      px={{ base: 4, md: 8, lg: 8, xl: 4 }}
+      py={6}
+      minH="calc(100vh - 364px)"
+    >
+      {results.length > 0 ? (
+        <Text fontSize={"1.2rem"} mb={4}>
+          Resultados para{" "}
+          <Text as={"span"} fontStyle={"italic"}>
+            {query}
+          </Text>
         </Text>
-      </Text>
+      ) : (
+        <Text fontSize={"1.2rem"} mb={4}>
+          No se encontraron resultados para{" "}
+          <Text as={"span"} fontStyle={"italic"}>
+            {query}
+          </Text>
+        </Text>
+      )}
+
       <Stack
         direction={"column"}
         flexWrap={"wrap"}

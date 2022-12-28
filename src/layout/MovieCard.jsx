@@ -2,11 +2,19 @@ import { Box, Grid, GridItem, Image, Stack, Text } from "@chakra-ui/react";
 import { api } from "@src/api";
 import { useNavigate } from "react-router-dom";
 
-export const MovieCard = ({ id, poster, name, date, overview }) => {
+export const MovieCard = ({
+  type = "movie",
+  id,
+  poster,
+  name,
+  date,
+  overview,
+}) => {
   const navigate = useNavigate();
   const posterImage = `${api.links.images.poster}${poster}`;
   let newOverview = overview.split(" ").slice(0, 10).join(" ") + " ...";
   let newDate = new Date(date);
+
   newDate = newDate
     .toLocaleDateString("es-AR", {
       year: "numeric",
@@ -27,7 +35,7 @@ export const MovieCard = ({ id, poster, name, date, overview }) => {
         h="100%"
         w="100%"
         direction={{ base: "row", sm: "column" }}
-        onClick={() => navigate(`/movie/${id}`)}
+        onClick={() => navigate(`/${type}/${id}`)}
         cursor={"pointer"}
       >
         <Image

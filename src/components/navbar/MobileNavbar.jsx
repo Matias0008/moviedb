@@ -88,13 +88,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         zIndex={"9999"}
       >
         <Stack alignItems={"start"} height={"100%"} fontSize={20} py={4}>
-          <Accordion
-            allowMultiple
-            color={"white"}
-            fontSize={20}
-            w="100%"
-            defaultIndex={[0, 1]}
-          >
+          <Accordion allowMultiple color={"white"} fontSize={20} w="100%">
             {links.map((link) => {
               return (
                 <MenuLink

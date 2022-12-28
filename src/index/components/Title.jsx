@@ -8,7 +8,7 @@ export const Title = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(inputValue);
+    if (inputValue) onSubmit(inputValue);
   };
 
   return (
@@ -63,6 +63,7 @@ export const Title = ({ onSubmit }) => {
               height={"46px"}
               width={"100px"}
               fontWeight={"bold"}
+              type="submit"
             >
               Buscar
             </Button>

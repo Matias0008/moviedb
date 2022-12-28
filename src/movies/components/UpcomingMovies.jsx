@@ -18,6 +18,7 @@ export const UpcomingMovies = () => {
       </Stack>
     );
   }
+
   return (
     <MovieLayout
       results={results}

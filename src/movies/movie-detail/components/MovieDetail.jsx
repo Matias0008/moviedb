@@ -7,11 +7,14 @@ import { api } from "@src/api";
 
 import { Facts } from "./Facts";
 import { Detail } from "./Detail";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../../../context/AppContext";
 
 export const MovieDetail = () => {
   const { id } = useParams();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
   const { setPageTitle } = useContext(AppContext);
 
   const moviesURL = api.links.requests.getOneMovie(id);
